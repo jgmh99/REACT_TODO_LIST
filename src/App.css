@@ -1,10 +1,25 @@
-
 #ListItem{
-  border-bottom: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
+  border: 1px solid green;
 }
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+#graph{
+  border: 1px solid red;
+  padding: 0;
+  /* height: auto; */
+}
+#container{
+  border : 1px solid blue
+}
+#TodoItemList_ac{
+  border: 1px solid green;
+}
+.abcd{
+  border: 2px solid red;
+  box-sizing: border-box;
 }

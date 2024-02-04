@@ -277,35 +277,34 @@ function App() {
           <TodoListAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
           <Container sx={{ paddingTop: 3 }}>
             <Grid container spacing={2}>
-              {currentUser && todoItemList.length > 0 && (
-                <>
-                  {/* todo list 추가 bar */}
-                  <Grid item xs={12}>
-                    <TodoItemInputField onSubmit={onSubmit} />
-                  </Grid>
+              {/* TodoItemInputField */}
+              <Grid item xs={12}>
+                <TodoItemInputField onSubmit={onSubmit} />
+              </Grid>
 
-                  {/* TodoItemList */}
-                  <Grid item xs={9}>
-                    <Typography variant="h6" component="div">Todo-List</Typography>
-                    <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
-                      <TodoItemList
-                        todoItemList={todoItemList}
-                        onTodoItemClick={onTodoItemClick}
-                        onRemoveClick={onRemoveClick} />
-                    </div>
-                  </Grid>
-                  
-                  {/* 그래프 */}
-                  <Grid item xs={3}>
-                    <Typography variant="h6" component="div">
-                      진행도
-                    </Typography>
-                    <Box sx={{ width: '100%', height: '100%' }} id="graph" className="graphBox">
-                      <Doughnut id='dough' data={getChartData()} style={{ width: '100%', height: "100%" }} />
-                    </Box>
-                  </Grid>
-                </>
-              )}
+              {/* TodoItemList */}
+              <Grid item xs={9} >
+                <Typography variant="h6" component="div">Todo-List</Typography>
+                <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
+                  <TodoItemList
+                    todoItemList={todoItemList}
+                    onTodoItemClick={onTodoItemClick}
+                    onRemoveClick={onRemoveClick}
+                  />
+                </div>
+              </Grid>
+
+              {/* 그래프 */}
+              <Grid item xs={3}>
+                <Typography variant="h6" component="div">
+                  진행도
+                </Typography>
+                {currentUser && todoItemList.length > 0 && (
+                  <Box sx={{ width: '100%', height:'100%' }} id="graph" className="graphBox">
+                    <Doughnut id='dough' data={getChartData()} style={{ width: '100%', height:"100%" }} />
+                  </Box>
+                )}
+              </Grid>
             </Grid>
           </Container>
         </>
