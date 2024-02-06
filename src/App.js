@@ -21,13 +21,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TailSpin } from 'react-loader-spinner';
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Grid from '@mui/material/Grid';
+import MainPage from './pages/MainPage';
+import tist_logo from './img/tist_logo.png'
 
 
 const firebaseConfig = {
-  
+  apiKey: "AIzaSyDGzWy1GO-oYHD5E97PawlRZI_iODhoT1I",
+  authDomain: "todo-list-1dc5f.firebaseapp.com",
+  projectId: "todo-list-1dc5f",
+  storageBucket: "todo-list-1dc5f.appspot.com",
+  messagingSenderId: "117786700415",
+  appId: "1:117786700415:web:1f01cdb9a610acb7616d4a",
+  measurementId: "G-ZEPNV4T50S"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -57,31 +65,30 @@ const TodoItemInputField = (props) => {
 
   return (
     <Box sx={{ marginTop: '64px' }}>
-  <Stack direction="row" spacing={2} justifyContent="center">
-    <Grid item xs={10}>
-      <TextField
-        fullWidth
-        id="todo-item-input"
-        label="오늘의 할일"
-        variant="outlined"
-        onChange={(e) => setInput(e.target.value)}
-        value={input}
-        onKeyDown={todoTxt}
-        sx={{ height: '100%' }} // TextField의 높이를 100%로 설정
-      />
-    </Grid>
-    <Grid item xs={2}>
-      <Button
-        variant="outlined"
-        onClick={onSubmit}
-        sx={{ width:"100%", height: '100%' }} // Button의 높이를 100%로 설정
-      >
-        추가하기
-      </Button>
-    </Grid>
-  </Stack>
-</Box>
-
+      <Stack direction="row" spacing={2} justifyContent="center">
+        <Grid item xs={10}>
+          <TextField
+            fullWidth
+            id="todo-item-input"
+            label="오늘의 할일"
+            variant="outlined"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            onKeyDown={todoTxt}
+            sx={{ height: '100%' }} // TextField의 높이를 100%로 설정
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            variant="outlined"
+            onClick={onSubmit}
+            sx={{ width:"100%", height: '100%' }} // Button의 높이를 100%로 설정
+          >
+            추가하기
+          </Button>
+        </Grid>
+      </Stack>
+    </Box>  
   );
 };
 
@@ -137,11 +144,11 @@ const TodoItemList = (props) => {
 
 const TodoListAppBar = (props) => {
   const loginWithGoogleButton = (
-    <Button color="inherit" onClick={() => { signInWithRedirect(auth, provider); }}>Login</Button>
+    <Button variant="outlined" style={{ color: 'black',  }} onClick={() => { signInWithRedirect(auth, provider); }}>로그인</Button>
   );
 
   const logoutButton = (
-    <Button color="inherit" onClick={() => { signOut(auth); }}>Logout</Button>
+    <Button variant="outlined" style={{color:"black", }} onClick={() => { signOut(auth); }}>Logout</Button>
   );
 
   const button = props.currentUser === null ? loginWithGoogleButton : logoutButton;
@@ -150,20 +157,24 @@ const TodoListAppBar = (props) => {
 
   useEffect(() => {
     if (props.currentUser !== null) {
+      // 사용자가 로그인한 경우
       const user = auth.currentUser;
-      const displayName = user.displayName || "User";
+
+      // 사용자 이름을 가져와서 설정
+      const displayName = user.displayName || "사용자";
       setUserName(displayName);
+    } else {
+      // 사용자가 로그아웃한 경우
+      setUserName(""); // 또는 다른 초기값 설정
     }
   }, [props.currentUser]);
 
   return (
-    <AppBar position="fixed">
-      <Toolbar sx={{ display: 'flex', width: '100%', maxWidth: 1100, margin: 'auto', justifyContent: 'space-between' }}>
-        <Typography variant="h6" component="div">
-          Todo List
-        </Typography>
+    <AppBar style={{ backgroundColor: 'white' }} position="fixed">
+      <Toolbar sx={{ display: 'flex', width: '100%', height: '64px', maxWidth: 1100, margin: 'auto', justifyContent: 'space-between' }}>
+        <img src={tist_logo} alt="Todo List" style={{ color: 'black', height: '100%' }} />
         <div sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="subtitle1" color="inherit" sx={{ marginRight: 1 }}>
+          <Typography variant="subtitle1" color="black" sx={{ marginRight: 1 }}>
             {props.currentUser !== null ? `${userName}님 환영합니다.` : ''}
             {button}
           </Typography>
@@ -172,6 +183,7 @@ const TodoListAppBar = (props) => {
     </AppBar>
   );
 };
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -236,23 +248,31 @@ function App() {
     await deleteDoc(todoItemRef);
     syncTodoItemListStateWithFirestore();
   };
+// 그래프
 
-  const getChartData = () => {
-    const finishedCount = todoItemList.filter((item) => item.isFinished).length;
-    const unfinishedCount = todoItemList.length - finishedCount;
-  
-    const data = {
-      labels: ['완료','미완료'],
-      datasets: [
-        {
-          data: [finishedCount, unfinishedCount],
-          backgroundColor: ['#36A2EB', '#FF6384'],
-          hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-        },
-      ],
-    };
-    return data;
+const getChartData = () => {
+  if (!todoItemList) {
+    // todoItemList이 정의되지 않았으면 빈 객체를 반환
+    return {};
+  }
+
+  const finishedCount = todoItemList.filter((item) => item.isFinished).length;
+  const unfinishedCount = todoItemList.length - finishedCount;
+
+  const data = {
+    labels: ['완료', '미완료'],
+    datasets: [
+      {
+        data: [finishedCount, unfinishedCount],
+        backgroundColor: ['#36A2EB', '#FF6384'],
+        hoverBackgroundColor: ['#36A2EB', '#FF6384'],
+      },
+    ],
   };
+
+  return { data };
+};
+
   
   //로딩 + 메세지 띄우는거임
   const LoadingSpinner = ({ message }) => (
@@ -262,6 +282,7 @@ function App() {
     </div>
   );
 
+  
   return (
     <div className="App">
       {loading ? (
@@ -269,43 +290,56 @@ function App() {
       ) : (
         <>
           <TodoListAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-          <Container sx={{ paddingTop: 3 }}>
-            <Grid container spacing={2}>
-              {currentUser && todoItemList.length > 0 && (
-                <>
-                  {/* todo list 추가 bar */}
-                  <Grid item xs={12}>
-                    <TodoItemInputField onSubmit={onSubmit} />
-                  </Grid>
-
-                  {/* TodoItemList */}
-                  <Grid item xs={9}>
-                    <Typography variant="h6" component="div">Todo-List</Typography>
-                    <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
-                      <TodoItemList
-                        todoItemList={todoItemList}
-                        onTodoItemClick={onTodoItemClick}
-                        onRemoveClick={onRemoveClick} />
-                    </div>
-                  </Grid>
-
-                  {/* 그래프 */}
-                  <Grid item xs={3}>
-                    <Typography variant="h6" component="div">
-                      진행도
-                    </Typography>
-                    <Box sx={{ width: '100%', height: '100%' }} id="graph" className="graphBox">
-                      <Doughnut id='dough' data={getChartData()} style={{ width: '100%', height: "100%" }} />
-                    </Box>
-                  </Grid>
-                </>
-              )}
-            </Grid>
-          </Container>
+          {currentUser ? (
+            <Container sx={{ paddingTop: 3 }}>
+              <Grid container spacing={2}>
+                {/* todo list 추가 bar */}
+                <Grid item xs={12}>
+                  <TodoItemInputField onSubmit={onSubmit} />
+                </Grid>
+  
+                {/* TodoItemList */}
+                <Grid item xs={9}>
+                  <Typography variant="h6" component="div">Todo-List</Typography>
+                  <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
+                    <TodoItemList
+                      todoItemList={todoItemList}
+                      onTodoItemClick={onTodoItemClick}
+                      onRemoveClick={onRemoveClick} />
+                  </div>
+                </Grid>
+  
+                {/* 그래프 */}
+                <Grid item xs={3}>
+                  <Typography variant="h6" component="div">
+                    진행도
+                  </Typography>
+                  <Box sx={{ width: 'auto', height: 'auto', '!important': true }} id="graph" className="graphBox">
+                    <Pie
+                      data={getChartData().data}
+                      options={{
+                        plugins: {
+                          legend: {
+                            position: 'right',
+                          },
+                        },
+                      }}
+                      sx={{width:"100%", height:"100%"}}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Container>
+          ) : (
+            <MainPage />
+          )}
         </>
       )}
     </div>
   );
+  
+    
+  
 }
 
 export default App;

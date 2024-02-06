@@ -10,7 +10,7 @@
 }
 #graph{
   border: 1px solid red;
-  padding: 0;
+  /* padding: 0; */
   /* height: auto; */
 }
 #container{
@@ -22,4 +22,11 @@
 .abcd{
   border: 2px solid red;
   box-sizing: border-box;
+}
+/*  */
+#mainpage_loginbox{
+  border: 1px solid red;
+}
+#join_con{
+  border: 1px solid blue;
 }
