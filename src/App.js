@@ -349,7 +349,7 @@ function App() {
       
                     <Grid item xs={9}>
                       <Typography variant="h6" component="div">Todo-List</Typography>
-                      <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
+                      <div className="abcd" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
                         <TodoItemList
                           todoItemList={todoItemList}
                           onTodoItemClick={onTodoItemClick}
