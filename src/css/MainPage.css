@@ -1,0 +1,39 @@
+#login_form{
+    /* border: 1px solid red; */
+    /* margin-bottom: 10px; */
+}
+#join_con{
+    /* border: 1px solid blue; */
+  }
+#abcd{
+    border: 1px solid red;
+}
+/* #vvvv{
+    border: 2px solid green;
+    box-sizing: border-box;
+} */
+#if_you_have_id{
+    margin: 10px 0;
+    text-align: center;
+}
+#join_btn{
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 0;
+    font-size: 16px;
+    position: relative;
+}
+#join_btn img{
+    width: 20px;
+    height: 20px;
+
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+}
+#join_btn p{
+    margin: 0;
+
+    /* position: absolute; */
+}

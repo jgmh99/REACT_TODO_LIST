@@ -24,171 +24,225 @@ import { TailSpin } from 'react-loader-spinner';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Grid from '@mui/material/Grid';
-import MainPage from './pages/MainPage';
+import JoinPage from './pages/JoinPage';
+import LoginPage from './pages/LoginPage';
 import tist_logo from './img/tist_logo.png'
+//라우트
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDGzWy1GO-oYHD5E97PawlRZI_iODhoT1I",
-  authDomain: "todo-list-1dc5f.firebaseapp.com",
-  projectId: "todo-list-1dc5f",
-  storageBucket: "todo-list-1dc5f.appspot.com",
-  messagingSenderId: "117786700415",
-  appId: "1:117786700415:web:1f01cdb9a610acb7616d4a",
-  measurementId: "G-ZEPNV4T50S"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-const auth = getAuth(app);
-
-const TodoItemInputField = (props) => {
-  const [input, setInput] = useState('');
-
-  const onSubmit = () => {
-    props.onSubmit(input);
-    setInput('');
-  };
-
-  const todoTxt = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (e.nativeEvent.isComposing) {
-        return;
-      }
-      console.log(e.target.value);
-      onSubmit();
-    }
-  };
-
-  return (
-    <Box sx={{ marginTop: '64px' }}>
-      <Stack direction="row" spacing={2} justifyContent="center">
-        <Grid item xs={10}>
-          <TextField
-            fullWidth
-            id="todo-item-input"
-            label="오늘의 할일"
-            variant="outlined"
-            onChange={(e) => setInput(e.target.value)}
-            value={input}
-            onKeyDown={todoTxt}
-            sx={{ height: '100%' }} // TextField의 높이를 100%로 설정
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <Button
-            variant="outlined"
-            onClick={onSubmit}
-            sx={{ width:"100%", height: '100%' }} // Button의 높이를 100%로 설정
-          >
-            추가하기
-          </Button>
-        </Grid>
-      </Stack>
-    </Box>  
-  );
-};
-
-const TodoItem = (props) => {
-  const style = props.todoItem.isFinished ? { textDecoration: 'line-through' } : {};
-  const formattedDate = new Date(props.todoItem.createdTime * 1000).toLocaleDateString();
-
-  return (
-    <ListItem id="ListItem" secondaryAction={
-      <IconButton edge="end" aria-label="comments" onClick={() => props.onRemoveClick(props.todoItem)}>
-        <DeleteIcon />
-      </IconButton>
-    }>
-      <ListItemButton role={undefined} onClick={() => props.onTodoItemClick(props.todoItem)} dense>
-        <ListItemIcon>
-          <Checkbox
-            edge="start"
-            checked={props.todoItem.isFinished}
-            disableRipple
-          />
-        </ListItemIcon>
-        <ListItemText
-          style={style}
-          primary={`${props.index}. ${props.todoItem.todoItemContent}`}
-          secondary={`Created on: ${formattedDate}`}
-        />
-      </ListItemButton>
-    </ListItem>
-  );
-};
-
-const TodoItemList = (props) => {
-  const todoList = props.todoItemList.map((todoItem, index) => {
-    return (
-      <TodoItem
-        key={todoItem.id}
-        todoItem={todoItem}
-        index={index + 1}
-        onTodoItemClick={props.onTodoItemClick}
-        onRemoveClick={props.onRemoveClick}
-      />
-    );
-  });
-
-  return (
-    <Box>
-      <List sx={{ margin: "0", maxWidth: 1100, padding: "0" }}>
-        {todoList}
-      </List>
-    </Box>
-  );
-};
-
-const TodoListAppBar = (props) => {
-  const loginWithGoogleButton = (
-    <Button variant="outlined" style={{ color: 'black',  }} onClick={() => { signInWithRedirect(auth, provider); }}>로그인</Button>
-  );
-
-  const logoutButton = (
-    <Button variant="outlined" style={{color:"black", }} onClick={() => { signOut(auth); }}>Logout</Button>
-  );
-
-  const button = props.currentUser === null ? loginWithGoogleButton : logoutButton;
-
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    if (props.currentUser !== null) {
-      // 사용자가 로그인한 경우
-      const user = auth.currentUser;
-
-      // 사용자 이름을 가져와서 설정
-      const displayName = user.displayName || "사용자";
-      setUserName(displayName);
-    } else {
-      // 사용자가 로그아웃한 경우
-      setUserName(""); // 또는 다른 초기값 설정
-    }
-  }, [props.currentUser]);
-
-  return (
-    <AppBar style={{ backgroundColor: 'white' }} position="fixed">
-      <Toolbar sx={{ display: 'flex', width: '100%', height: '64px', maxWidth: 1100, margin: 'auto', justifyContent: 'space-between' }}>
-        <img src={tist_logo} alt="Todo List" style={{ color: 'black', height: '100%' }} />
-        <div sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="subtitle1" color="black" sx={{ marginRight: 1 }}>
-            {props.currentUser !== null ? `${userName}님 환영합니다.` : ''}
-            {button}
-          </Typography>
-        </div>
-      </Toolbar>
-    </AppBar>
-  );
-};
 
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [todoItemList, setTodoItemList] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Firebase 초기화
+  const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+
+  const TodoItemInputField = (props) => {
+    const [input, setInput] = useState('');
+  
+    const onSubmit = () => {
+      props.onSubmit(input);
+      setInput('');
+    };
+  
+    const todoTxt = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (e.nativeEvent.isComposing) {
+          return;
+        }
+        console.log(e.target.value);
+        onSubmit();
+      }
+    };
+  
+    return (
+      <Box sx={{ marginTop: '64px' }}>
+        <Stack direction="row" spacing={2} justifyContent="center">
+          <Grid item xs={10}>
+            <TextField
+              fullWidth
+              id="todo-item-input"
+              label="오늘의 할일"
+              variant="outlined"
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              onKeyDown={todoTxt}
+              sx={{ height: '100%' }} // TextField의 높이를 100%로 설정
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Button
+              variant="outlined"
+              onClick={onSubmit}
+              sx={{ width:"100%", height: '100%' }} // Button의 높이를 100%로 설정
+            >
+              추가하기
+            </Button>
+          </Grid>
+        </Stack>
+      </Box>  
+    );
+  };
+  
+  const TodoItem = (props) => {
+    const style = props.todoItem.isFinished ? { textDecoration: 'line-through' } : {};
+    const formattedDate = new Date(props.todoItem.createdTime * 1000).toLocaleDateString();
+  
+    return (
+      <ListItem id="ListItem" secondaryAction={
+        <IconButton edge="end" aria-label="comments" onClick={() => props.onRemoveClick(props.todoItem)}>
+          <DeleteIcon />
+        </IconButton>
+      }>
+        <ListItemButton role={undefined} onClick={() => props.onTodoItemClick(props.todoItem)} dense>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={props.todoItem.isFinished}
+              disableRipple
+            />
+          </ListItemIcon>
+          <ListItemText
+            style={style}
+            primary={`${props.index}. ${props.todoItem.todoItemContent}`}
+            secondary={`Created on: ${formattedDate}`}
+          />
+        </ListItemButton>
+      </ListItem>
+    );
+  };
+  
+  const TodoItemList = (props) => {
+    const todoList = props.todoItemList.map((todoItem, index) => {
+      return (
+        <TodoItem
+          key={todoItem.id}
+          todoItem={todoItem}
+          index={index + 1}
+          onTodoItemClick={props.onTodoItemClick}
+          onRemoveClick={props.onRemoveClick}
+        />
+      );
+    });
+  
+    return (
+      <Box>
+        <List sx={{ margin: "0", maxWidth: 1100, padding: "0" }}>
+          {todoList}
+        </List>
+      </Box>
+    );
+  };
+  //헤더
+  const TodoListAppBar = (props) => {
+    const loginWithGoogleButton = (
+      //기능은 있지만 사용하지 않음 그래서 display:none처리
+      <Button variant="outlined" style={{ display: 'none'  }} onClick={() => { signInWithRedirect(auth, provider); }}>로그인</Button>
+    );
+  
+    const logoutButton = (
+      <Button variant="outlined" style={{ color: 'black' }} onClick={() => { signOut(auth); }}>Logout</Button>
+    );
+  
+    const button = props.currentUser === null ? loginWithGoogleButton : logoutButton;
+  
+    const [userName, setUserName] = useState("");
+  
+    useEffect(() => {
+      if (props.currentUser !== null) {
+        // 사용자가 로그인한 경우
+        const user = auth.currentUser;
+  
+        // 사용자 이름을 가져와서 설정
+        const displayName = user.displayName || "사용자";
+        setUserName(displayName);
+      } else {
+        // 사용자가 로그아웃한 경우
+        setUserName(""); // 또는 다른 초기값 설정
+      }
+    }, [props.currentUser]);
+  
+    return (
+      <AppBar style={{ backgroundColor: 'white',  }} position="fixed">
+        <Toolbar
+          id="headerToolbar"
+          sx={{
+            // display: 'flex',
+            width: '100%',
+            height: '64px',
+            maxWidth: '1170px',
+            minWidth: '300px',
+            margin: 'auto',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* <Link to="/" style={{ textDecoration: 'none', color: 'black' }}> */}
+          <img src={tist_logo} alt="Todo List logo" style={{ height: '100%', padding:'0px', margin:'0px' }} />
+          {/* </Link> */}
+          <div sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="subtitle1" color="black" sx={{ marginRight: 1 }}>
+              {props.currentUser !== null ? `${userName}님 환영합니다.` : `${userName}`}
+              {button}
+              {props.currentUser === null && (
+                // 로그인하지 않은 경우에만 가입 및 로그인 링크 표시
+                <>
+                  {/* <Button variant="outlined" style={{ color: 'black' }}>
+                    <Link to="/join" style={{ textDecoration: 'none', color: 'black'}}>
+                      가입
+                    </Link>  
+                  </Button> 
+                  <Button variant="outlined" style={{ color: 'black' }}>
+                    <Link to="/login" style={{ textDecoration: 'none', color: 'black'}}>
+                      로그인
+                    </Link>
+                  </Button> */}
+                  {/* 아래 코드로 수정 */}
+                  <Button
+                    variant="text"
+                    style={{ color: 'black' }}
+                    component={Link}
+                    to="/login"
+                    id="login_btn"
+                  >
+                    로그인
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    style={{ color: 'white', marginLeft:'10px' }}
+                    component={Link}
+                    to="/join"
+                  >
+                    무료로 시작하기
+                  </Button>
+                </ >
+              )}
+            </Typography>
+          </div>
+        </Toolbar>
+      </AppBar>
+    );
+    
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -201,7 +255,7 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   const syncTodoItemListStateWithFirestore = async () => {
     if (currentUser) {
@@ -248,33 +302,29 @@ function App() {
     await deleteDoc(todoItemRef);
     syncTodoItemListStateWithFirestore();
   };
-// 그래프
 
-const getChartData = () => {
-  if (!todoItemList) {
-    // todoItemList이 정의되지 않았으면 빈 객체를 반환
-    return {};
-  }
+  const getChartData = () => {
+    if (!todoItemList) {
+      return {};
+    }
 
-  const finishedCount = todoItemList.filter((item) => item.isFinished).length;
-  const unfinishedCount = todoItemList.length - finishedCount;
+    const finishedCount = todoItemList.filter((item) => item.isFinished).length;
+    const unfinishedCount = todoItemList.length - finishedCount;
 
-  const data = {
-    labels: ['완료', '미완료'],
-    datasets: [
-      {
-        data: [finishedCount, unfinishedCount],
-        backgroundColor: ['#36A2EB', '#FF6384'],
-        hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-      },
-    ],
+    const data = {
+      labels: ['완료', '미완료'],
+      datasets: [
+        {
+          data: [finishedCount, unfinishedCount],
+          backgroundColor: ['#36A2EB', '#FF6384'],
+          hoverBackgroundColor: ['#36A2EB', '#FF6384'],
+        },
+      ],
+    };
+
+    return { data };
   };
 
-  return { data };
-};
-
-  
-  //로딩 + 메세지 띄우는거임
   const LoadingSpinner = ({ message }) => (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <TailSpin color="#00BFFF" height={100} width={100} />
@@ -282,64 +332,64 @@ const getChartData = () => {
     </div>
   );
 
-  
   return (
-    <div className="App">
-      {loading ? (
-        <LoadingSpinner message="잠시만 기다려주세요." />
-      ) : (
-        <>
-          <TodoListAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-          {currentUser ? (
-            <Container sx={{ paddingTop: 3 }}>
-              <Grid container spacing={2}>
-                {/* todo list 추가 bar */}
-                <Grid item xs={12}>
-                  <TodoItemInputField onSubmit={onSubmit} />
-                </Grid>
-  
-                {/* TodoItemList */}
-                <Grid item xs={9}>
-                  <Typography variant="h6" component="div">Todo-List</Typography>
-                  <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
-                    <TodoItemList
-                      todoItemList={todoItemList}
-                      onTodoItemClick={onTodoItemClick}
-                      onRemoveClick={onRemoveClick} />
-                  </div>
-                </Grid>
-  
-                {/* 그래프 */}
-                <Grid item xs={3}>
-                  <Typography variant="h6" component="div">
-                    진행도
-                  </Typography>
-                  <Box sx={{ width: 'auto', height: 'auto', '!important': true }} id="graph" className="graphBox">
-                    <Pie
-                      data={getChartData().data}
-                      options={{
-                        plugins: {
-                          legend: {
-                            position: 'right',
-                          },
-                        },
-                      }}
-                      sx={{width:"100%", height:"100%"}}
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-            </Container>
+    <Router basename={process.env.PUBLIC_URL}>
+      <div className="App">
+        {loading ? (
+          <LoadingSpinner message="잠시만 기다려주세요." />
           ) : (
-            <MainPage />
+            <>
+              <TodoListAppBar currentUser={currentUser} auth={auth} provider={provider} />
+              {currentUser ? (
+                <Container sx={{ paddingTop: 3 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TodoItemInputField onSubmit={onSubmit} />
+                    </Grid>
+      
+                    <Grid item xs={9}>
+                      <Typography variant="h6" component="div">Todo-List</Typography>
+                      <div className="abcd" style={{ height: '100vh', overflowY: 'auto' }}>
+                        <TodoItemList
+                          todoItemList={todoItemList}
+                          onTodoItemClick={onTodoItemClick}
+                          onRemoveClick={onRemoveClick} />
+                      </div>
+                    </Grid>
+      
+                    <Grid item xs={3}>
+                      <Typography variant="h6" component="div">
+                        진행도
+                      </Typography>
+                      <Box sx={{ width: 'auto', height: 'auto', '!important': true }} id="graph" className="graphBox">
+                        <Pie
+                          data={getChartData().data}
+                          options={{
+                            plugins: {
+                              legend: {
+                                position: 'right',
+                              },
+                            },
+                          }}
+                          sx={{ width: "100%", height: "100%" }}
+                        />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Container>
+              ) : (
+                <>
+                  <Routes>
+                    <Route path="/join" element={<JoinPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                  </Routes>
+                </>
+              )}
+            </>
           )}
-        </>
-      )}
-    </div>
-  );
-  
+        </div>
+        </Router>
+      );
+    }
     
-  
-}
-
-export default App;
+    export default App;

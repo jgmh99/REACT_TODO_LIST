@@ -27,6 +27,9 @@
 #mainpage_loginbox{
   border: 1px solid red;
 }
-#join_con{
-  border: 1px solid blue;
+#headerToolbar{
+  padding: 0px;
+}
+#login_btn:hover{
+  background-color: rgb(216, 216, 216);
 }
