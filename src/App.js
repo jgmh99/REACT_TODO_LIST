@@ -82,6 +82,7 @@ function App() {
               fullWidth
               id="todo-item-input"
               label="오늘의 할일"
+              placeholder='오늘의 할일을 적어주세요!'
               variant="outlined"
               onChange={(e) => setInput(e.target.value)}
               value={input}
@@ -110,10 +111,10 @@ function App() {
     return (
       <ListItem id="ListItem" secondaryAction={
         <IconButton edge="end" aria-label="comments" onClick={() => props.onRemoveClick(props.todoItem)}>
-          <DeleteIcon />
-        </IconButton>
-      }>
-        <ListItemButton role={undefined} onClick={() => props.onTodoItemClick(props.todoItem)} dense>
+          <DeleteIcon id='del_btn'/>
+        </IconButton> }>
+        
+        <ListItemButton role={undefined} id='ListItemBtn' onClick={() => props.onTodoItemClick(props.todoItem)} dense >
           <ListItemIcon>
             <Checkbox
               edge="start"
@@ -121,10 +122,11 @@ function App() {
               disableRipple
             />
           </ListItemIcon>
+
           <ListItemText
             style={style}
             primary={`${props.index}. ${props.todoItem.todoItemContent}`}
-            secondary={`Created on: ${formattedDate}`}
+            secondary={`작성일: ${formattedDate}`}
           />
         </ListItemButton>
       </ListItem>
@@ -140,13 +142,14 @@ function App() {
           index={index + 1}
           onTodoItemClick={props.onTodoItemClick}
           onRemoveClick={props.onRemoveClick}
+          
         />
       );
     });
   
     return (
-      <Box>
-        <List sx={{ margin: "0", maxWidth: 1100, padding: "0" }}>
+      <Box style={{border:"1px solid black", borderRadius:'4px'}}>
+        <List sx={{ margin: "0", maxWidth: 1100, padding: "0", }}>
           {todoList}
         </List>
       </Box>
@@ -332,6 +335,46 @@ function App() {
     </div>
   );
 
+  // 버튼 클릭 관련 함수
+  const [activeButton, setActiveButton] = useState('show_all_todo');
+  // 버튼 누르면 바뀌게
+  const handleButtonClick = (buttonId) => {
+    setActiveButton(buttonId);
+  };
+  // activeButton에 따라 필터링된 todoItemList을 반환하는 함수
+  const getFilteredTodoList = () => {
+    switch (activeButton) {
+      case 'show_all_todo':
+        return todoItemList;
+      case 'show_com_todo':
+        return todoItemList.filter(item => item.isFinished);
+      case 'show_Notcom_todo':
+        return todoItemList.filter(item => !item.isFinished);
+      default:
+        return todoItemList;
+    }
+  };
+  
+  /* 그래프에 버튼 달아서 보이게 안보이게 */
+  const [isGraphVisible, setIsGraphVisible] = useState(true);
+  // const toggleGraph = () => {
+  //   setIsGraphVisible(!isGraphVisible);
+  // };
+  const toggleGraph = () => {
+    setIsGraphVisible(!isGraphVisible);
+    setTimeout(() => {
+      const graphBox = document.getElementById('graphBox');
+      if (graphBox) {
+        if (!isGraphVisible) {
+          graphBox.classList.add('collapsed');
+        } else {
+          graphBox.classList.remove('collapsed');
+        }
+      }
+    }, 2000); // 2초 뒤에 collapsed 클래스를 추가 또는 제거
+  };
+
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
@@ -349,9 +392,36 @@ function App() {
       
                     <Grid item xs={9}>
                       <Typography variant="h6" component="div">Todo-List</Typography>
-                      <div className="abcd" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
+
+                      <Grid item xs={3}>
+                        <div style={{ display:'flex', justifyContent: 'space-between', marginBottom:'10px'}}>
+                        <Button
+                          id="show_all_todo"
+                          variant={activeButton === 'show_all_todo' ? 'contained' : 'outlined'}
+                          onClick={() => handleButtonClick('show_all_todo')}
+                        >
+                          전체
+                        </Button>
+                        <Button
+                          id="show_com_todo"
+                          variant={activeButton === 'show_com_todo' ? 'contained' : 'outlined'}
+                          onClick={() => handleButtonClick('show_com_todo')}
+                        >
+                          완료
+                        </Button>
+                        <Button
+                          id="show_Notcom_todo"
+                          variant={activeButton === 'show_Notcom_todo' ? 'contained' : 'outlined'}
+                          onClick={() => handleButtonClick('show_Notcom_todo')}
+                        >
+                          미완료
+                        </Button>
+                        </div>
+                      </Grid>
+                      <div className="abcd" style={{ maxHeight: '100vh', overflowY: 'auto', }}>
                         <TodoItemList
-                          todoItemList={todoItemList}
+                          // todoItemList={todoItemList} 하단 코드로 변경 : 누른 버튼에 따라서 필터링
+                          todoItemList={getFilteredTodoList()}
                           onTodoItemClick={onTodoItemClick}
                           onRemoveClick={onRemoveClick} />
                       </div>
@@ -359,21 +429,30 @@ function App() {
       
                     <Grid item xs={3}>
                       <Typography variant="h6" component="div">
-                        진행도
+                        - 진행도 -
                       </Typography>
-                      <Box sx={{ width: 'auto', height: 'auto', '!important': true }} id="graph" className="graphBox">
-                        <Pie
-                          data={getChartData().data}
-                          options={{
-                            plugins: {
-                              legend: {
-                                position: 'right',
+                      
+                      <Button id="gra_btn" variant="outlined" onClick={toggleGraph}>
+                        {isGraphVisible ? '접기' : '펼치기'}
+                      </Button>
+                     {/* 그래프 박스에 대한 조건부 렌더링 */}
+                      <div id="graphBox" className="graphBox">
+                        {isGraphVisible && (
+                          <Pie
+                            data={getChartData().data}
+                            options={{
+                              plugins: {
+                                legend: {
+                                  position: 'right',
+                                },
                               },
-                            },
-                          }}
-                          sx={{ width: "100%", height: "100%" }}
-                        />
-                      </Box>
+                            }}
+                            sx={{ width: '100%', height: '100%' }}
+                            id="graph"
+                            className="graphBox"
+                          />
+                        )}
+                      </div>
                     </Grid>
                   </Grid>
                 </Container>
