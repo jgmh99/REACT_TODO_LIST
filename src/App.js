@@ -195,9 +195,9 @@ function App() {
             justifyContent: 'space-between',
           }}
         >
-          {/* <Link to="/" style={{ textDecoration: 'none', color: 'black' }}> */}
-          <img src={tist_logo} alt="Todo List logo" style={{ height: '100%', padding:'0px', margin:'0px' }} />
-          {/* </Link> */}
+          <Link to="/" style={{ textDecoration: 'none', color: 'black', height: '100%' }}>
+            <img src={tist_logo} alt="Todo List logo" style={{ height: '100%', padding:'0px', margin:'0px' }} />
+          </Link>
           <div sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant="subtitle1" color="black" sx={{ marginRight: 1 }}>
               {props.currentUser !== null ? `${userName}님 환영합니다.` : `${userName}`}
