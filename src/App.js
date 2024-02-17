@@ -27,6 +27,7 @@ import Grid from '@mui/material/Grid';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import tist_logo from './img/tist_logo.png'
+import NotLogin from './pages/NotLogin';
 //라우트
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -235,7 +236,7 @@ function App() {
                     component={Link}
                     to="/join"
                   >
-                    무료로 시작하기
+                    회원가입
                   </Button>
                 </ >
               )}
@@ -459,6 +460,7 @@ function App() {
               ) : (
                 <>
                   <Routes>
+                    <Route path="/" element={<NotLogin />} />
                     <Route path="/join" element={<JoinPage />} />
                     <Route path="/login" element={<LoginPage />} />
                   </Routes>

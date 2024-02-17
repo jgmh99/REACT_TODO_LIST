@@ -1,0 +1,82 @@
+#asd{
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 16px;
+}
+.mainpage_50_L{
+    width: 70%;
+
+    box-sizing: border-box;
+    position: relative;
+}
+.mainpage_50_R{
+    width: 27%;
+    box-sizing: border-box;
+
+    background: url(../img/mainpage2.png) no-repeat center / cover;
+    border-radius: 0px 6px 6px 0px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 16px;
+    padding: 5px;
+    margin-left: 3%;
+}
+.grid-item:nth-child(4){
+    background-color: #fff;
+    opacity: 0.5;
+    border-radius: 10px;
+}
+
+.grid-item:nth-child(2),
+.grid-item:nth-child(3),
+.grid-item:nth-child(5),
+.grid-item:nth-child(6){
+  border: none; /* 테두리 제거 */
+}
+
+.grid-item{
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+}
+.small_txt{
+    box-sizing: border-box;  
+    font-weight: 700; 
+}
+.big_txt{
+    box-sizing: border-box;
+    font-size: 50px;
+}
+/* 시작버튼 */
+.getStart_btn{
+    margin-top: 10px;
+}
+.getStart_btn button{
+    background: linear-gradient(0.25turn, #5de1e6,#ffde5a,#ff8bd2 );
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    /* float: right; */
+    height: 50px;
+    padding: 0px 15px;
+
+}
+.only_txt_box{
+    
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    float: right;
+    right: 0;
+        /* 테두리 관련 css */
+    border: 7px solid;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border-image:linear-gradient(0deg, #ff8bd2 0%, #5de1e6 100%);
+    border-image-slice: 1;
+    /* border-radius가 안먹기 때문에 ㅋㅋ */
+    background: #fff linear-gradient(90deg, #fff 0%, #fff 100%);
+}
