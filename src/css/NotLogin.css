@@ -181,7 +181,7 @@
     padding: 0;
 }
 #join_txt {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     font-family: "Do Hyeon", sans-serif;
     font-size: 24px;
     text-align: center;
