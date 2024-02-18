@@ -182,7 +182,8 @@ function App() {
         setUserName(""); // 또는 다른 초기값 설정
       }
     }, [props.currentUser]);
-  
+
+    
     return (
       <AppBar style={{ backgroundColor: 'white',  }} position="fixed">
         <Toolbar
@@ -372,7 +373,38 @@ function App() {
       }
     }, 2000); // 2초 뒤에 collapsed 클래스를 추가 또는 제거
   };
-
+  const Topbtn = () => {
+    const gotop = () => {
+      const scrollToTop = () => {
+        const currentPosition = window.scrollY;
+        if (currentPosition > 0) {
+          window.scrollTo(0, currentPosition - Math.min(100, currentPosition));//속도 높이고 싶으면=크게, 줄이고 싶으면 작게(숫자 바꾸기)
+          requestAnimationFrame(scrollToTop);
+        }
+      };
+  
+      scrollToTop();
+    };
+    return (
+      <>
+        <button
+          style={{
+            fontSize: '24px',
+            border: 'none',
+            borderRadius: '10px',
+            position: 'fixed',
+            bottom: '100px',
+            right: '2em',
+            cursor: 'pointer'
+          }}
+          id='top'
+          onClick={gotop}
+        >
+          🔝
+        </button>
+      </>
+    );
+  };
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
@@ -464,10 +496,12 @@ function App() {
                   </Routes>
                 </>
               )}
+              <Topbtn/>
               <Footer/>
             </>
           )}
         </div>
+        
         </Router>
       );
     }
