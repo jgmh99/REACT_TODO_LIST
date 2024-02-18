@@ -6,15 +6,29 @@ import mainpage3 from '../img/mainpage3.png';
 import login from '../img/login.png'
 import '../css/NotLogin.css';
 import { Translate } from '@mui/icons-material';
+import heroimg from '../img/bannerimg2.jpg'
+import join_login from '../img/join_login.png'
+import write_list from '../img/write_list.png'
 
 const NotLogin = () => {
   const getStartBtn = () => {
     alert('버튼 눌림');
     // 추후 로그인 하는 창으로 이동 ㅇㅇ
   }
+  
   return (
     <div >
-      <Container id="asd" sx={{display:'flex' , marginTop: '70px', maxWidth: 1100,  padding: '0'}}>
+      {/* hero-img */}
+      <Container id='hero_img_con' sx={{display:'flex' , marginTop: '65px', maxWidth: 1100,  padding: '0'}}>
+        <img src={heroimg} alt="heroImg" />
+        <div id="herotxt"> 
+          <p>Write your todolist.</p>
+        </div>
+        <div className="getStart_btn sign_up_btn">
+            <button  onClick={getStartBtn}>Sign Up Now</button>
+          </div>
+      </Container>
+      <Container id="asd" sx={{display:'flex'}}>
         <div className="mainpage_50_L">
           {/* 설명 1 */}
           <div className="small_txt">
@@ -37,19 +51,32 @@ const NotLogin = () => {
         </div>
 
         <div className="mainpage_50_R">
-          {/* 사용자 수 찍히게 */}
-          <div className="grid-item"></div>
-          <div className="grid-item"></div>
-          <div className="grid-item"></div>
-          {/* 하단에 사용법 보기 */}
-          <div className="grid-item" onClick={getStartBtn} style={{textAlign:'center', position:'relative', cursor:'pointer'}}>
-            <p style={{position:'absolute', top:'50%', transform:'TranslateY(-50%)', margin:0}}>자세히 알아보기 -＞</p>
-          </div>
-          <div className="grid-item"></div>
-          <div className="grid-item"></div>
+          
         </div>
-        
-        
+      </Container>
+      <Container id="how_to_use">
+        <h1>How to use?</h1>
+
+        <Container id='wrap_how_to_use'>
+
+          <Container id="first_join">
+            <img src={join_login} alt="join or login plz" />
+            <div id='join_txt'>
+              <div><p>1.Log in with your email and password!</p></div>
+              <div><p>2.You can easily sign up and log in using Google, Apple, or Facebook.</p></div>
+            </div>
+          </Container>
+
+          <Container id='sec_wirte'>
+            <img src={write_list} alt="just write your TodoList" />
+            <div className="write_txt">
+              <div><p>1.Just login and enter Todolsit!</p></div>
+              <div><p>2.You can also manage it with Completed, Incomplete, and All tabs.</p></div>
+            </div>
+          </Container>
+
+        </Container>
+
       </Container>
     </div >
   );

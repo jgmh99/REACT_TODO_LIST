@@ -164,15 +164,15 @@ const LoginPage = () => {
             {/* 간편 가입 */}
             <Stack spacing={1}>
                 <Button id='join_btn' variant='outlined' onClick={() => { signInWithRedirect(auth, provider); }}>
-                    <img src="https://www.cdnlogo.com/logos/g/35/google-icon.svg"/>
+                    {/* <img src="https://www.cdnlogo.com/logos/g/35/google-icon.svg"/> */}
                     <p>Google ID로 로그인</p>
                 </Button>
                 <Button id='join_btn' variant='outlined' onClick={btnclick}>
-                    <img src="https://www.cdnlogo.com/logos/a/12/apple.svg"/>
+                    {/* <img src="https://www.cdnlogo.com/logos/a/12/apple.svg"/> */}
                     <p>Apple ID로 로그인 </p>
                 </Button>
                 <Button id='join_btn' variant='outlined' onClick={btnclick}>
-                    <img src="https://www.cdnlogo.com/logos/f/91/facebook-icon.svg"/>
+                    {/* <img src="https://www.cdnlogo.com/logos/f/91/facebook-icon.svg"/> */}
                     <p>FaceBook ID로 로그인</p>
                 </Button>
             </Stack>

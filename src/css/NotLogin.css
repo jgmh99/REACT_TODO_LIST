@@ -79,4 +79,144 @@
     border-image-slice: 1;
     /* border-radius가 안먹기 때문에 ㅋㅋ */
     background: #fff linear-gradient(90deg, #fff 0%, #fff 100%);
+    font-family: "Nanum Pen Script", cursive;
+    font-size: 24px;
 }
+/* hero img css */
+#hero_img_con{
+    margin-bottom: 10px;
+    padding: 0;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+
+    /* border: 1px solid red; */
+    box-sizing: border-box; 
+}
+#hero_img_con img{
+    width: 100%;
+    height: 90vh;
+}
+#herotxt{
+    position: absolute;
+    bottom: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+    /* color: #fff; */
+    font-size: 50px;
+}
+.sign_up_btn{
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 텍스트 타이핑 효과주기 */
+#herotxt p{
+    /* font-size: 20px; */
+    min-width:11px;
+    white-space: nowrap;
+    margin: 0;
+    position: fixed;
+    color: transparent;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+#herotxt p::before {
+    content: "Write your todolist.";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    overflow: hidden;
+    border-right: 1px solid black;
+    animation: typing 6s steps(31);
+    font-family: "Do Hyeon", sans-serif;
+}
+  
+
+/* how to use? */
+#how_to_use{
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+#how_to_use h1{
+    font-family: "Do Hyeon", sans-serif;
+}
+#first_join{
+    display: flex;
+    border-radius: 10px 10px 0 0;
+}
+#sec_wirte{
+    border-radius: 0 0 10px 10px;
+}
+#first_join,
+#sec_wirte{
+    border: 3px solid gray;
+    box-sizing: border-box;
+    padding: 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+#sec_wirte{
+    position: relative;
+}
+#first_join img{
+    width: 60%;
+    /* border: 1px solid black; */
+    /* border-radius: 10px 0px 0px 10px; */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#sec_wirte img{
+    width: 100%;
+}
+#wrap_how_to_use{
+    /* border: 2px solid blue; */
+    padding: 0;
+}
+#join_txt {
+    border: 1px solid green;
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 25%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#join_txt p{
+    margin: 0;
+    padding: 10px;
+}
+.write_txt{
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 0;
+    right: 0;
+    width: 20em;
+    background-color: lightgray;
+    /* color: #ffffff; */
+    border-radius: 10px;
+    padding: 10px;
+    font-family: "Do Hyeon", sans-serif;
+}
+/* 효과 */
+@keyframes typing{
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 100%;
+    }
+    100% {
+    width: 100%;
+    }
+  }

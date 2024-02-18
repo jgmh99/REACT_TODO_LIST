@@ -30,9 +30,7 @@ import tist_logo from './img/tist_logo.png'
 import NotLogin from './pages/NotLogin';
 //라우트
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-
-
+import Footer from './pages/Footer';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -466,6 +464,7 @@ function App() {
                   </Routes>
                 </>
               )}
+              <Footer/>
             </>
           )}
         </div>
