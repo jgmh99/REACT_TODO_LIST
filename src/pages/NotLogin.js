@@ -9,13 +9,8 @@ import { Translate } from '@mui/icons-material';
 import heroimg from '../img/bannerimg2.jpg'
 import join_login from '../img/join_login.png'
 import write_list from '../img/write_list.png'
-
+import { Link } from 'react-router-dom';
 const NotLogin = () => {
-  const getStartBtn = () => {
-    alert('버튼 눌림');
-    // 추후 로그인 하는 창으로 이동 ㅇㅇ
-  }
-  
   return (
     <div >
       {/* hero-img */}
@@ -25,7 +20,7 @@ const NotLogin = () => {
           <p>Write your todolist.</p>
         </div>
         <div className="getStart_btn sign_up_btn">
-            <button  onClick={getStartBtn}>Sign Up Now</button>
+            <Link to="/join"><button>Sign Up Now</button></Link>
           </div>
       </Container>
       <Container id="asd" sx={{display:'flex'}}>
@@ -40,7 +35,7 @@ const NotLogin = () => {
           </div>
           {/* 시작하기 버튼 */}
           <div className="getStart_btn">
-            <button  onClick={getStartBtn}>Get Started!</button>
+            <Link to="/login"><button>Get Started!</button></Link>
           </div>
           {/* txt만 있는 ㅇㅇ */}
           <div className="only_txt_box">
