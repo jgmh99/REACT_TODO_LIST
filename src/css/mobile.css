@@ -1,0 +1,380 @@
+/* 가장작은 디바이스 */
+@media (max-width : 384px)/*완*/{
+    #hero_img_con{
+        height: 35vh;
+    }
+    .mainpage_50_R{
+        display: none !important;
+    }
+    .mainpage_50_L{
+        width: 100% !important;
+    }
+    #first_join{
+        display: block !important;
+    }
+    #first_join img{
+        width: 100% !important;
+    }
+    #asd{
+        display: block;
+    }
+    .only_txt_box{
+        width: 100% !important;
+        float: right !important;
+        font-size: 14px !important;
+    }
+    #join_txt{
+        margin: 0 !important; 
+        background-color: #fff;
+        text-align: left;
+        font-size: 18px !important;
+    }
+    .big_txt{
+        font-size: 25px !important;
+    }
+    #sec_wirte{
+        display: block !important;
+    }
+    .write_txt{
+        position: inherit !important;
+        width: 100%;
+        background-color: #fff !important;
+        font-size: 18px !important;
+    }
+    /* 로그인/회원가입 버튼  */
+    #join_btn{
+        width: 100%;
+        padding: 10px 0;
+        margin: 10px 0;
+        font-size: 16px;
+        position: relative;
+    }
+    #join_btn img{
+        width: 20px;
+        height: 20px;
+    
+        position: absolute;
+        top: 50%;
+        left: 7%;
+        transform: translateY(-50%);
+    }
+    #if_you_have_id{
+        font-size: 14px;
+    }
+    #show_all_todo,
+    #show_com_todo,
+    #show_Notcom_todo,
+    #gra_btn{
+        font-size: 11px;
+    }
+    #show_com_todo{
+        margin: 0px 5px;
+       
+    }   
+    /* ---------------------------------- */
+    #herotxt p{
+    font-size: 20px;
+    min-width:11px;
+    white-space: nowrap;
+    margin: 0;
+    position: fixed;
+    color: transparent;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    }
+    /* svg{
+        display: none; 
+    }*/
+    #join_con{
+        width: 100%;
+    }
+    #bbbb{
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    #vvvv{
+        display: inline;
+        width: 100% ;
+        padding:0px 10px;
+        margin:0
+    }
+    #login_form{
+        width: 100%;
+        display: block;
+    }
+    #lottie_div{
+        display: none !important;
+    }
+
+}
+@media (min-width:385px) and (max-width : 575px)/*완*/ {
+    #hero_img_con{
+        height: 35vh;
+    }
+    .mainpage_50_R{
+        display: none !important;
+    }
+    .mainpage_50_L{
+        width: 100% !important;
+    }
+    #first_join{
+        display: block !important;
+    }
+    #first_join img{
+        width: 100% !important;
+    }
+    #asd{
+        display: block;
+    }
+    .only_txt_box{
+        width: 100% !important;
+        float: right !important;
+        font-size: 18px !important;
+    }
+    #join_txt{
+        margin: 0 !important;
+        background-color: #fff;
+        text-align: left !important;
+        font-size: 22px !important;
+    }
+    .big_txt{
+        font-size: 25px !important;
+    }
+    #sec_wirte{
+        display: block !important;
+    }
+    .write_txt{
+        position: inherit !important;
+        width: 100%;
+        background-color: #fff !important;
+        font-size: 22px !important;
+    }
+    /* 로그인/회원가입 버튼  */
+    #join_btn{
+        width: 100%;
+        padding: 10px 0;
+        margin: 10px 0;
+        font-size: 20px;
+        position: relative;
+    }
+    #join_btn img{
+        width: 20px;
+        height: 20px;
+    
+        position: absolute;
+        top: 50%;
+        left: 7%;
+        transform: translateY(-50%);
+    }
+    #if_you_have_id{
+        font-size: 18px;
+    }
+    #show_all_todo,
+    #show_com_todo,
+    #show_Notcom_todo,
+    #gra_btn{
+        font-size: 15px;
+    }
+    #show_com_todo{
+        margin: 0px 5px;
+       
+    }   
+    /* ---------------------------------- */
+    #herotxt p{
+    font-size: 24px;
+    min-width:11px;
+    white-space: nowrap;
+    margin: 0;
+    position: fixed;
+    color: transparent;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    }
+    #join_con{
+        width: 100%;
+    }
+    #bbbb{
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    #vvvv{
+        display: inline;
+        width: 100% ;
+        padding:0px 10px;
+        margin:0
+    }
+    #login_form{
+        width: 100%;
+        display: block;
+    }
+    #lottie_div{
+        display: none !important;
+    }
+}
+
+/* 모바일 디바이스: <= 768px */
+@media (min-width : 576px) and (max-width : 768px) {
+    #hero_img_con{
+        height: 45vh;
+    }
+    .only_txt_box{
+        width: 100% !important;
+        float: right !important;
+        font-size: 22px !important;
+    }
+    .mainpage_50_R{
+        display: none !important;
+    }
+    .mainpage_50_L{
+        width: 100% !important;
+    }
+    #first_join{
+        display: block !important;
+    }
+    #first_join img{
+        width: 100% !important;
+    }
+    #join_txt{
+        margin: 0 !important;
+        background-color: #fff;
+        text-align: left !important;
+        font-size: 22px !important;
+    }
+    #sec_wirte{
+        display: block !important;
+    }
+    .write_txt{
+        position: inherit !important;
+        width: 100%;
+        background-color: #fff !important;
+        font-size: 22px !important;
+    }
+    /* 로그인/회원가입 버튼  */
+    #join_btn{
+        width: 100%;
+        padding: 10px 0;
+        margin: 10px 0;
+        font-size: 16px;
+        position: relative;
+    }
+    #join_btn img{
+        width: 20px;
+        height: 20px;
+    
+        position: absolute;
+        top: 50%;
+        left: 7%;
+        transform: translateY(-50%);
+    }
+    #if_you_have_id{
+        font-size: 16px ;
+    }
+    #show_all_todo,
+    #show_com_todo,
+    #show_Notcom_todo,
+    #gra_btn{
+        font-size: 11px;
+    }
+    #show_com_todo{
+        margin: 0px 5px;
+    }
+    #join_con{
+        width: 100%;
+    }
+    #bbbb{
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    #vvvv{
+        display: inline;
+        width: 100% ;
+        padding:0px 10px;
+        margin:0
+    }
+    #login_form{
+        width: 100%;
+        display: block;
+    }
+    #lottie_div{
+        display: none !important;
+    }
+    
+}
+/* 태블릿 디바이스: 768px < x <= 992px */
+@media (min-width: 769px) and (max-width: 992px) {
+    #hero_img_con{
+        height: 60vh;
+    }
+    .mainpage_50_R{
+        display: none !important;
+    }
+    .mainpage_50_L{
+        width: 100% !important;
+    }
+    #asd{
+     display: block;   
+    }
+    .only_txt_box{
+        width: 100% !important;
+        float: right !important;
+    }
+    .getStart_btn{
+        float: right;
+    }
+    #first_join{
+        position: relative !important;
+        display: block !important;
+    }
+    #first_join img{
+        width: 100% !important;
+    }
+    #join_txt{
+        margin: 0 !important;
+        background-color: #fff;
+        text-align: left !important;
+        font-size: 22px !important;
+    }
+    #sec_wirte{
+        display: block !important;
+    }
+    #sec_wirte img{
+        width: 100% !important;
+        /* height: 50vh; */
+    }
+    .write_txt{
+        position: inherit !important;
+        width: 100%;
+        background-color: #fff !important;
+        font-size: 22px !important;
+    }
+    #join_btn img{
+        width: 20px;
+        height: 20px;
+    
+        position: absolute;
+        top: 50%;
+        left: 10% !important;
+        transform: translateY(-50%);
+    }
+    /* 로그인 후 todolist */
+    #show_all_todo,
+    #show_com_todo,
+    #show_Notcom_todo,
+    #gra_btn{
+        font-size: 11px;
+        /* width: 10px; */
+        /* padding: 0; */
+    }
+    #show_com_todo{
+        margin: 0px 5px;
+    }
+}
+/* 데스크탑: 992px < x <= 1200px */
+@media (min-width: 992px) and (max-width: 1200px) {
+    
+}

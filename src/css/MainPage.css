@@ -1,17 +1,11 @@
-#login_form{
-    /* border: 1px solid red; */
-    /* margin-bottom: 10px; */
-}
-#join_con{
-    /* border: 1px solid blue; */
-  }
 #abcd{
     border: 1px solid red;
 }
-/* #vvvv{
-    border: 2px solid green;
+#vvvv{
+    /* border: 2px solid green; */
+    /* width: 100% !important; */
     box-sizing: border-box;
-} */
+}
 #if_you_have_id{
     margin: 10px 0;
     text-align: center;
@@ -37,3 +31,5 @@
 
     /* position: absolute; */
 }
+
+/*  */

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/Footer.css'
+import '../css/mobile.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 const Footer = () => {
 
@@ -18,7 +19,7 @@ const Footer = () => {
             <p className='center_txt'>Contact</p>
             <ul>
                 <li><Link to="https://open.kakao.com/o/seSYbDag" target='_blank'>-카카오톡-</Link></li>
-                <li><Link to='https://github.com/jgmh99' target='_blank'>-Github-</Link></li>
+                {/* <li><Link to='https://github.com/jgmh99' target='_blank'>-Github-</Link></li> */}
             </ul>
         </div>
         <div className="Made_by">

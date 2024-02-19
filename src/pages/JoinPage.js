@@ -7,6 +7,7 @@ import { getAuth } from 'firebase/auth';
 import { signInWithRedirect, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider } from 'firebase/auth';
 // CSS import
 import '../css/MainPage.css';
+import '../css/mobile.css'
 import { Link } from 'react-router-dom';
 //비밀번호 보이게
 import { IconButton, InputAdornment } from '@mui/material';
@@ -99,7 +100,7 @@ const JoinPage = () => {
   return (
     <div>
       <Container id="join_con"  sx={{ marginTop: '70px', maxWidth: 1100, height: '70vh', padding: '0' }}>
-        <Grid container spacing={2} sx={{ height: '100%' }}>
+        <Grid id='bbbb' container spacing={2} sx={{ height: '100%' }}>
           <Grid item xs={5} id="vvvv">
             {/* <Typography variant="h4" component="div" id="mainpage_loginbox">
               가입
@@ -157,23 +158,23 @@ const JoinPage = () => {
             {/* 간편 가입 */}
             <Stack spacing={1}>
                 <Button id='join_btn' variant='outlined' onClick={() => { signInWithRedirect(auth, provider); }}>
-                    {/* <img src="https://www.cdnlogo.com/logos/g/35/google-icon.svg"/> */}
+                    <img src="https://www.cdnlogo.com/logos/g/35/google-icon.svg"/>
                     <p>Google ID로 시작하기</p>
                 </Button>
                 <Button id='join_btn' variant='outlined' onClick={btnclick}>
-                    {/* <img src="https://www.cdnlogo.com/logos/a/12/apple.svg"/> */}
+                    <img src="https://www.cdnlogo.com/logos/a/12/apple.svg"/>
                     <p>Apple ID로 시작하기 </p>
                 </Button>
                 <Button id='join_btn' variant='outlined' onClick={btnclick}>
-                    {/* <img src="https://www.cdnlogo.com/logos/f/91/facebook-icon.svg"/> */}
+                    <img src="https://www.cdnlogo.com/logos/f/91/facebook-icon.svg"/>
                     <p>FaceBook ID로 시작하기</p>
                 </Button>
             </Stack>
             <Typography id="if_you_have_id">
-                이미 가입하셨나요? <Link to="/login">로그인</Link>하세요!
+                이미 가입하셨나요? <br/> 여기서 <Link to="/login">로그인</Link> 하세요!
             </Typography>
           </Grid>
-          <Grid item xs={7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 0 , border: '1px' }}>
+          <Grid id="lottie_div" item xs={7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 0 , border: '1px' }}>
             <Lottie options={lottieOptions} height={400} width={400} />
           </Grid>
         </Grid>

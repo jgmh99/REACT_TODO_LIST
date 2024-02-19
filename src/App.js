@@ -1,4 +1,5 @@
 import './App.css';
+import './css/mobile.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
@@ -28,6 +29,8 @@ import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import tist_logo from './img/tist_logo.png'
 import NotLogin from './pages/NotLogin';
+
+
 //라우트
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Footer from './pages/Footer';
@@ -474,7 +477,7 @@ function App() {
                             options={{
                               plugins: {
                                 legend: {
-                                  position: 'right',
+                                  position: 'bottom',
                                 },
                               },
                             }}
