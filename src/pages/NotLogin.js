@@ -8,7 +8,7 @@ import write_list from '../img/write_list.png'
 import { Link } from 'react-router-dom';
 const NotLogin = () => {
   return (
-    <div >
+    <div className='view_not_login'>
       {/* hero-img */}
       <Container id='hero_img_con' sx={{display:'flex' , marginTop: '65px', maxWidth: 1100,  padding: '0'}}>
         <img src={heroimg} alt="heroImg" />

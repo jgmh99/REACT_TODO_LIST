@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc, setDoc, doc, deleteDoc, getDocs, query, orderBy, where } from "firebase/firestore";
 import { GoogleAuthProvider, getAuth, signInWithRedirect, onAuthStateChanged, signOut } from "firebase/auth";
 import Box from '@mui/material/Box';
@@ -52,7 +52,7 @@ function App() {
   };
 
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  // const analytics = getAnalytics(app);
   const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
@@ -398,7 +398,8 @@ function App() {
             position: 'fixed',
             bottom: '100px',
             right: '2em',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            zIndex:'999'
           }}
           id='top'
           onClick={gotop}
@@ -411,14 +412,14 @@ function App() {
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <div className="App">
+      <div className="App" style={{position:'relatve'}}>
         {loading ? (
           <LoadingSpinner message="잠시만 기다려주세요." />
           ) : (
             <>
               <TodoListAppBar currentUser={currentUser} auth={auth} provider={provider} />
               {currentUser ? (
-                <Container sx={{ paddingTop: 3 }}>
+                <Container sx={{ paddingTop: 3,  minHeight:'100vh' }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TodoItemInputField onSubmit={onSubmit} />
@@ -500,10 +501,13 @@ function App() {
                 </>
               )}
               <Topbtn/>
-              <Footer/>
+              
             </>
+            
           )}
+          <Footer style={{position:'absolute', bottom:0}}/>
         </div>
+        
         
         </Router>
       );

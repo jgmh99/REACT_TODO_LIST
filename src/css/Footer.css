@@ -3,10 +3,15 @@
     /* height: 100px; */
     box-sizing: border-box;
 
-    margin-top: 300px;
+    margin-top: 100px;
     background-color: beige;
     display: flex;
 
+    /* position: absolute; */
+    position: relative;
+    bottom: 0;
+    /* transform: translateY(300%); */
+    
 }
 .About_Prj,
 .Contact,
@@ -32,3 +37,4 @@ a{
     font-family: "Do Hyeon", sans-serif;
     text-align: center;
 }
+
